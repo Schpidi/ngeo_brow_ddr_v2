@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>ngEO Browse Server</title>
+
+        <meta name="description" content="ngEO Browse Server presentation for the DDR V2">
+        <meta name="author" content="Stephan Meissl">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal.js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal.js/css/theme/eox.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="reveal.js/lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <section>
+                    <h1>ngEO Browse Server</h1>
+                    <br/>
+                    <a class="image" href="http://eox.at"><img src="./images/EOX_Logo.png" alt="EOX IT Services GmbH, Austria" title="EOX IT Services GmbH, Austria"/></a>
+                    <p><a href="mailto:office@eox.at">office@eox.at</a> <a href="https://twitter.com/eox_a">@eox_a</a></p>
+                    <p>Stephan Meißl <a href="mailto:stephan.meissl@eox.at">stephan.meissl@eox.at</a> <a href="https://twitter.com/Schpidi">@Schpidi</a></p>
+                    <p>ngEO Task4 DDR-V2 Madrid 2013-11-20</p>
+                    <br/>
+                    <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US"><img style="margin: 15px 0px 0px 0px;" alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/80x15.png" /></a>
+                    <p><small>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">Creative Commons Attribution 3.0 Unported License</a>.</small></p>
+                    <aside class="notes">
+                        <p></p>
+                    </aside>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>ngEO Architecture</h2>
+                        <img src="./images/ngeo_architecture.png" alt="ngEO Architecture" title="ngEO Architecture"/>
+                        <aside class="notes">
+                            <p></p>
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>BROW Architecture</h2>
+                        <img src="./images/browse_server_architecture.png" alt="BROW Architecture" title="BROW Architecture"/>
+                        <aside class="notes">
+                            <p>Entirely based on Open Source Software:</p>
+                            <ul>
+                                <li>GDAL for raster processing</li>
+                                <li>MapServer for OGC services support</li>
+                                <li>EOxServer for Earth Observation extension</li>
+                                <li>MapCache for extremely well performing WMTS and WMS access</li>
+                            </ul>
+                            <p>OGC's WMTS and WMS Standards</p>
+                            <p>Configuration from ngEO Controller</p>
+                            <p>Data ingested by ngEO FEED</p>
+                            <p>Authentication using Shibboleth</p>
+                            <p>Authorization from ngEO Web Server</p>
+                        </aside>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Flow of Browse Images</h2>
+                        <img src="./images/browse_images_sequence.png" alt="Flow of Browse Images" title="Flow of Browse Images"/>
+                        <aside class="notes">
+                            <p></p>
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Ingestion of Browse Images</h2>
+                        <img src="./images/browse_images_sequence_ingestion.png" alt="Ingestion of Browse Images" title="Ingestion of Browse Images"/>
+                        <aside class="notes">
+                            <p></p>
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Preprocessing</h2>
+                        <ul>
+                            <li class="fragment">Input Geographic Metadata for Geo-referencing
+                                <ul>
+                                    <li>Footprint polygon - footprint</li>
+                                    <li>Regular grid of tiepoints - regularGrid</li>
+                                    <li>Pre-georeferenced images</li>
+                                    <ul>
+                                        <li>rectifiedBrowse</li>
+                                        <li>modelInGeotiff</li>
+                                    </ul>
+                                </ul>
+                            </li>
+                            <li class="fragment">Optimizations
+                                <ul>
+                                    <li>Footprint generation</li>
+                                    <li>Re-projection</li>
+                                    <li>Addition of alpha-channel</li>
+                                    <li>Internal tilling</li>
+                                    <li>Overviews</li>
+                                    <li>Compression</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <aside class="notes">
+                            <p>TBD</p>
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Retrieval of Browse Images</h2>
+                        <img src="./images/browse_images_sequence_wmts.png" alt="Retrieval of Browse Images" title="Retrieval of Browse Images"/>
+                        <aside class="notes">
+                            <p></p>
+                        </aside>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>BROW Components</h2>
+                        <img src="./images/brow_components_external_interfaces_extended.png" alt="BROW Components" title="BROW Components"/>
+                        <aside class="notes">
+                            <p></p>
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>BROW Component Core</h2>
+                        <img src="./images/brow_core_components.png" alt="BROW Component Core" title="BROW Component Core"/>
+                        <aside class="notes">
+                            <p></p>
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>BROW Core Data Model</h2>
+                        <img src="./images/model_config.png" alt="BROW Core Data Model" title="BROW Core Data Model"/>
+                        <aside class="notes">
+                            <p></p>
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Technology Baseline</h2>
+                        <ul>
+                            <li>CentOS 6 64bit repositories (base, extras, updates) based on RHEL 6</li>
+                            <ul>
+                                <li>Apache HTTP server 2.2: httpd, mod_wsgi</li>
+                                <li>PostgreSQL 8.4: postgresql-server, postgresql</li>
+                                <li>Python 2.6: python, python-lxml, python-psycopg2, pytz</li>
+                            </ul>
+                            <li>EPEL &amp; ELGIS repositories</li>
+                            <ul>
+                                <li>Django 1.4: Django14</li>
+                                <li>PROJ.4 4.8: proj</li>
+                                <li>GDAL 1.9: gdal, gdal-python</li>
+                                <li>PostGIS 1.5: postgis</li>
+                            </ul>
+                            <li>EOX repository</li>
+                            <ul>
+                                <li>libxml2 2.7: libxml2, libxml2-python - GML patch</li>
+                                <li>MapServer 6.2: mapserver, mapserver-python - 6.0 otherwise</li>
+                                <li>MapCache 1.2; 1.3dev: mapcache</li>
+                                <li>EOxServer 0.3.1; 0.3dev: EOxServer</li>
+                                <li>ngeo.b.core 1.0.2; 2.0dev: ngEO_Browse_Server</li>
+                            </ul>
+                        </ul>
+                        <aside class="notes">
+                            <p></p>
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Development &amp; Testing</h2>
+                        <ul>
+                            <li>Git hosted on <a href="https://github.com/EOX-A/ngeo-b/">GitHub</a></li>
+                            <li>Vagrant &amp; VirtualBox (see <a href="https://github.com/EOX-A/ngeo-b/blob/master/vagrant/HOWTO">HOWTO</a>)</li>
+                            <li><a href="https://jenkins.eox.at/job/ngEO_BrowseServer_branch-1-0/">Jenkins CI</a></li>
+                            <li>Python/Django unit test framework</li>
+                            <li>Performance tests using JMeter</li>
+                            <li>Integration testing on OpenStack platform provided by Task 5</li>
+                        </ul>
+                        <aside class="notes">
+                            <p></p>
+                        </aside>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>BROW Deployment Basic</h2>
+                        <img src="./images/brow_deployment_small.png" alt="BROW Deployment Basic" title="BROW Deployment Basic"/>
+                        <aside class="notes">
+                            <p></p>
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>BROW Deployment Multiple</h2>
+                        <img src="./images/brow_deployment.png" alt="BROW Deployment Multiple" title="BROW Deployment Multiple"/>
+                        <aside class="notes">
+                            <p></p>
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>BROW Deployment Alternative</h2>
+                        <img src="./images/brow_deployment_alternative.png" alt="BROW Deployment Alternative" title="BROW Deployment Alternative"/>
+                        <aside class="notes">
+                            <p></p>
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>BROW Installation</h2>
+                        <img src="./images/brow_installation_flow.png" alt="BROW Installation" title="BROW Installation"/>
+                        <aside class="notes">
+                            <p></p>
+                        </aside>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Changes</h2>
+                        <ul>
+                            <li>Tile merging limit per tile instead of per browse layer (<a href="http://foss4g.eox.at/time.html">demo</a>)</li>
+                            <li>Merge images during ingestion (S1)</li>
+                            <li>Asynchronous seeding</li>
+                            <ul>
+                                <li>Faster synchronous part for FEED</li>
+                                <li>Synchronization between BROW components/Consistency checks</li>
+                                <li>Improved performance in case of merging</li>
+                                <li>Delay in availability on WEBC</li>
+                            </ul>
+                        </ul>
+                        <aside class="notes">
+                            <p></p>
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Security</h2>
+                        <ul>
+                            <li class="fragment">Authentication using Shibboleth
+                                <ul>
+                                    <li>BROW Deployment Recommendation</li>
+                                    <ul>
+                                        <li>Separate instances for Open and Protected browse layers</li>
+                                        <li>Pro: Far easier configuration of Shibboleth e.g. redirects</li>
+                                        <li>Con : Small operations overhead</li>
+                                    </ul>
+                                </ul>
+                            </li>
+                            <li class="fragment">Authorization
+                                <ul>
+                                    <li>Alternative 1: ngEO-CP</li>
+                                    <ul>
+                                        <li>Harmonization in ngEO</li>
+                                        <li>Depending on design and implementation</li>
+                                    </ul>
+                                    <li>Alternative 2: BROW Custom</li>
+                                    <ul>
+                                        <li>Middleware in MapCache calling simple tool using memcached to obtain decision</li>
+                                    </ul>
+                                </ul>
+                            </li>
+                        </ul>
+                        <aside class="notes">
+                            <p></p>
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Communication with CTRL</h2>
+                        <ul>
+                            <li class="fragment">Done
+                                <ul>
+                                    <li>Register/Unregister</li>
+                                    <li>Status</li>
+                                </ul>
+                            </li>
+                            <li class="fragment">To be done
+                                <ul>
+                                    <li>Global and specific configuration</li>
+                                    <li>Pause/Resume/Stop/Restart</li>
+                                    <li>Notifications</li>
+                                    <li>Reporting</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <aside class="notes">
+                            <p></p>
+                        </aside>
+                    </section>
+                </section>
+
+                <section>
+                    <h2>OSGeo's FOSS4G 2014</h2>
+                    <p>Presentation: ESA User Services powered by Open Source</p>
+                    <ul>
+                        <li><a href="http://schpidi.github.io/foss4g_2013_esa_browse_server">Slides</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=Wg8KQ_MGJGA">Video</a></li>
+                    </ul>
+                    <p>Live Demonstration</p>
+                    <p><a href="http://foss4g.eox.at/time.html"><img src="./images/time.png" alt="Live Demonstration" title="Live Demonstration"/></a></p>
+                    <aside class="notes">
+                        <p></p>
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Thank you for your Attention</h2>
+                    <br/>
+                    <a class="image" href="http://eox.at"><img src="./images/EOX_Logo.png" alt="EOX IT Services GmbH, Austria" title="EOX IT Services GmbH, Austria"/></a>
+                    <p><a href="mailto:office@eox.at">office@eox.at</a> <a href="https://twitter.com/eox_a">@eox_a</a></p>
+                    <p>Stephan Meißl <a href="mailto:stephan.meissl@eox.at">stephan.meissl@eox.at</a> <a href="https://twitter.com/Schpidi">@Schpidi</a></p>
+                    <p>ngEO Task4 DDR-V2 Madrid 2013-11-20</p>
+                    <br/>
+                    <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US"><img style="margin: 15px 0px 0px 0px;" alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/80x15.png" /></a>
+                    <p><small>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">Creative Commons Attribution 3.0 Unported License</a>.</small></p>
+                    <aside class="notes">
+                        <p>TBD</p>
+                    </aside>
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="reveal.js/lib/js/head.min.js"></script>
+        <script src="reveal.js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                keyboard: true,
+                touch: true,
+                overview: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
